@@ -1,0 +1,90 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Generate Card</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="formcard" (ngSubmit)="createCard()">
+            <!-- Product ID -->
+            <div class="mb-3">
+              <label for="productId" class="form-label">Product ID</label>
+              <input
+                id="productId"
+                type="number"
+                class="form-control"
+                formControlName="productId"
+                [ngClass]="{
+                  'is-invalid':
+                    formcard.get('productId')?.invalid &&
+                    formcard.get('productId')?.touched
+                }"
+              />
+              <div
+                *ngIf="
+                  formcard.get('productId')?.invalid &&
+                  formcard.get('productId')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <div *ngIf="formcard.get('productId')?.hasError('required')">
+                  Product ID is required.
+                </div>
+                <div *ngIf="formcard.get('productId')?.hasError('minlength')">
+                  Product ID must be exactly 6 digits.
+                </div>
+                <div *ngIf="formcard.get('productId')?.hasError('maxlength')">
+                  Product ID must be exactly 6 digits.
+                </div>
+                <div *ngIf="formcard.get('productId')?.hasError('pattern')">
+                  Product ID must be a number with 6 digits.
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Holder Name -->
+            <div class="mb-3">
+              <label for="cardHolderName" class="form-label"
+                >Card Holder Name</label
+              >
+              <input
+                id="cardHolderName"
+                type="text"
+                class="form-control"
+                formControlName="cardHolderName"
+                [ngClass]="{
+                  'is-invalid':
+                    formcard.get('cardHolderName')?.invalid &&
+                    formcard.get('cardHolderName')?.touched
+                }"
+              />
+              <div
+                *ngIf="
+                  formcard.get('cardHolderName')?.invalid &&
+                  formcard.get('cardHolderName')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <div
+                  *ngIf="formcard.get('cardHolderName')?.hasError('required')"
+                >
+                  Card Holder Name is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              [disabled]="isSaveInProgess"
+            >
+              {{ isSaveInProgess ? "Submitting..." : "Submit" }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
